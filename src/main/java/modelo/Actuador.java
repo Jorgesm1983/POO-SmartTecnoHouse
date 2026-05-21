@@ -11,7 +11,7 @@ public abstract class Actuador implements IDispositivo {
     /** Identificador único del actuador. */
     protected String id;
 
-    /** Nombre legible del actuador. */
+    /** Nombre del actuador. */
     protected String nombre;
 
     /** Estado del actuador, String para soportar múltiples estados . */
@@ -20,7 +20,7 @@ public abstract class Actuador implements IDispositivo {
     /**
      * Constructor para cualquier actuador
      * @param id, identificador único que se le asignará al actuador
-     * @param nombre, nombre legible del actuador.
+     * @param nombre, nombre del actuador.
      */
     public Actuador(String id, String nombre) {
         this.id = id;

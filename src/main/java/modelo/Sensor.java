@@ -11,7 +11,7 @@ public abstract class Sensor implements IDispositivo {
     /** Identificador único del sensor. */
     protected String id;
 
-    /** Nombre legible del sensor. */
+    /** Nombre del sensor. */
     protected String nombre;
 
     /** Último valor numérico medido por el sensor. */
@@ -23,7 +23,7 @@ public abstract class Sensor implements IDispositivo {
     /**
      * Constructor para cualquier sensor
      * @param id, identificador único que se le asignará al sensor.
-     * @param nombre, nombre legible del sensor.
+     * @param nombre, nombre del sensor.
      * @param unidad, unidad de medida.
      */
     public Sensor(String id, String nombre, String unidad) {

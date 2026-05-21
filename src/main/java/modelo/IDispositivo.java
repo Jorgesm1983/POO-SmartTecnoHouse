@@ -12,7 +12,7 @@ public interface IDispositivo {
     String getId();
 
     /**
-     * Devuelve un nombre legible del dispositivo
+     * Devuelve un nombre del dispositivo
      * @return String con el nombre.
      */
     String getNombre();
