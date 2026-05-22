@@ -13,14 +13,14 @@ public class ReglaIluminacion implements Regla{
         // Iniciamos luminidad a un valor 1000 lumenes.
         double luminosidad = 1000.0;
         boolean hayPresencia = false;
-        Actuador presencia = null;
+        Actuador bombilla = null;
 
         // Extraemops la información actual de los sensores
         for (Sensor sensor : sensores){
             if (sensor.getId().equals("light")) {
                 luminosidad = sensor.getValor();
             } else if (sensor.getId().equals("pir")){
-                hayPresencia = (sensor.getValor() == 1.0)
+                hayPresencia = (sensor.getValor() == 1.0);
             }
         }
 
