@@ -78,6 +78,7 @@ public class Controlador {
 
         // Guardamos el estado de los actuadores
         guardarLogActuadores();
+        guardarEstadoJSON();
     }
 
     /**
@@ -98,6 +99,37 @@ public class Controlador {
 
         } catch (IOException e) {
             System.out.println("Error crítico al escribir el log: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Generamos el archivo json para la persistencia del estadoo del sistema.
+     */
+    private void guardarEstadoJSON() {
+        // Abrimos el archivo SIN el true para que se sobrescriba siempre
+        try (FileWriter fileWriter = new FileWriter("estado_sistema.json");
+             PrintWriter printWriter = new PrintWriter(fileWriter)) {
+
+            printWriter.println("{");
+
+            // Recorremos los sensores para guardar sus claves y valores
+            for (int i = 0; i < sensores.size(); i++) {
+                Sensor s = sensores.get(i);
+
+                // Construimos el formado del JSON: "id": "valor"
+                printWriter.print("  \"" + s.getId() + "\": \"" + s.getEstadoActual() + "\"");
+
+                if (i < sensores.size() - 1) {
+                    printWriter.println(",");
+                } else {
+                    printWriter.println();
+                }
+            }
+
+            printWriter.println("}");
+
+        } catch (IOException e) {
+            System.out.println("Error al generar el archivo JSON: " + e.getMessage());
         }
     }
 }
