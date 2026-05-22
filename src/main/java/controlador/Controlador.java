@@ -67,7 +67,7 @@ public class Controlador {
             reporte.append(sensor.getNombre()).append(" (").append(sensor.getId()).append(") ha medido: ").append(sensor.getEstadoActual()).append("\n");
         }
 
-        // Las reglas piensan y actúan
+        // Se ejecutan las reglas
         for (Regla regla : reglas) {
             regla.aplicar(sensores, actuadores);
         }

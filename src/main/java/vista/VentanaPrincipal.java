@@ -38,7 +38,7 @@ public class VentanaPrincipal extends JFrame {
         botonEjecutar = new JButton("Evaluar estado de Sensores");
         add(botonEjecutar, BorderLayout.SOUTH);
 
-        // 4. Conectar el botón con el Controlador
+        // Conectar el botón con el Controlador
         botonEjecutar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
