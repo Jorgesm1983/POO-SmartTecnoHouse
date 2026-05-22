@@ -28,6 +28,8 @@ replay_pid*
 /bin/
 /target/
 /build/
+/javadoc/
+/doc/
 
 # Carpetas IDE
 .idea/
