@@ -1,7 +1,7 @@
 package modelo;
 
 /**
- * Clase concreta que representa un ventilador.
+ * Clase que representa un actuador de ventilador.
  * Hereda de la clase abstracta Actuador.
  */
 public class ActuadorVentilador extends Actuador {
@@ -10,7 +10,7 @@ public class ActuadorVentilador extends Actuador {
     private static final String[] ACCIONES = {"OFF", "LOW", "MED", "HIGH"};
 
     /**
-     * Constructor del ventilador.
+     * Constructor del actuador ventilador.
      * @param id El identificador único del actuador.
      */
     public ActuadorVentilador(String id) {

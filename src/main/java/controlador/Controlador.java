@@ -24,7 +24,8 @@ public class Controlador {
     private List<Regla> reglas;
 
     /**
-     * Constructor del Controlador. Inicializa las listas y carga los dispositivos.
+     * Constructor del Controlador.
+     * Inicializa las listas y carga los dispositivos y recupera los datos de persistencia.
      */
     public Controlador() {
         this.sensores = new ArrayList<>();
@@ -58,9 +59,12 @@ public class Controlador {
     }
 
     /**
-     * Ejecuta un ciclo completo: actualiza sensores, evalúa reglas y muestra resultados.
+     * Ejecuta un ciclo completo de simulación actualiza sensores, evalúa reglas
+     * y registra el estado final en el archivo json.
+     * @return Un String formateado con el reporte completo de lo ocurrido en el ciclo.
      */
     public String ejecutarCicloSimulacion() {
+
         // Usamos StringBuilder para ir construyendo el texto que devolveremos a la ventana
         StringBuilder reporte = new StringBuilder();
         reporte.append("--- INICIANDO SISTEMA ---");
@@ -83,7 +87,7 @@ public class Controlador {
         }
         reporte.append("-------------------------------------\n");
 
-        // Guardamos el estado de los actuadores en el LOG y los valores de los sensores en el JSON
+        // Guardamos el estado de los actuadores en el log y los valores de los sensores en el json
         guardarLogActuadores();
         guardarEstadoJSON();
 
@@ -104,7 +108,7 @@ public class Controlador {
 
             // Escribimos cada actuador separado por comas
             for (Actuador actuador : actuadores) {
-                printWriter.println(timestamp + ", " + actuador.getId() + ", " + actuador.getEstadoActual() + ", AUTO");
+                printWriter.println(timestamp + ", " + actuador.getId() + ", " + actuador.getEstadoActual());
             }
 
         } catch (IOException e) {
@@ -114,6 +118,7 @@ public class Controlador {
 
     /**
      * Generamos el archivo json para la persistencia del estadoo del sistema.
+     * Sobrescribe el archivo en cada ciclo con la lectura más reciente.
      */
     private void guardarEstadoJSON() {
         // Abrimos el archivo sin el true para que se sobrescriba siempre
@@ -170,8 +175,10 @@ public class Controlador {
                 // Separamos la clave del valor usando los primeros dos puntos que encuentre
                 int posicionDosPuntos = linea.indexOf(":");
                 if (posicionDosPuntos != -1) {
+
                     // Extraemos y limpiamos las comillas del ID
                     String idSensor = linea.substring(0, posicionDosPuntos).replace("\"", "").trim();
+
                     // Extraemos y limpiamos las comillas y la coma final del valor
                     String valor = linea.substring(posicionDosPuntos + 1).replace("\"", "").replace(",", "").trim();
 
@@ -191,7 +198,9 @@ public class Controlador {
         }
     }
     /**
-     * Devolvemos los valores del json para cargar al inicio de la ejecución del programa
+     * Recupera el estado de los sensores directamente desde la memoria
+     * para mostrarlo en la interfaz al iniciar la aplicación.
+     * @return Un String formateado con el listado de sensores y sus valores iniciales.
      */
     public String obtenerEstadoInicial() {
         StringBuilder estado = new StringBuilder();

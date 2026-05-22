@@ -5,9 +5,14 @@ import vista.VentanaPrincipal;
 import javax.swing.SwingUtilities;
 
 /**
- * Clase principal que arranca la aplicación.
+ * Clase principal que actúa como punto de entrada de la aplicación.
+ * Se encarga de instanciar el Controlador y lanzar la interfaz gráfica de forma segura.
  */
 public class Main {
+
+    /**
+     * Metodo principal que arranca la ejecución del programa.
+     */
     public static void main(String[] args) {
 
         // SwingUtilities asegura que la interfaz gráfica arranque de forma segura

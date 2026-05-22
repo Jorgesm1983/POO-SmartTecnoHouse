@@ -4,9 +4,15 @@ import java.util.List;
 
 /**
  * Clase que implementa la regla de ventilación.
+ * Controla el encendido y apagado del ventilador en base a la temperatura y la presencia .
  */
 public class ReglaVentilacion implements Regla {
 
+    /**
+     * Aplica la lógica de control sobre el ventilador según los datos de los sensores.
+     * @param sensores   Lista de sensores para consultar su estado actual.
+     * @param actuadores Lista de actuadores para ejecutar acciones.
+     */
     @Override
     public void aplicar(List<Sensor> sensores, List<Actuador> actuadores) {
         double temperatura = 0.0;

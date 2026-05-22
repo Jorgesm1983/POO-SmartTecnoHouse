@@ -1,7 +1,7 @@
 package modelo;
 
 /**
- * Clase concreta que representa un sensor de temperatura.
+ * Clase representa un sensor de temperatura.
  * Hereda de la clase abstracta Sensor.
  */
 public class SensorTemperatura extends Sensor {
@@ -18,11 +18,10 @@ public class SensorTemperatura extends Sensor {
 
     /**
      * Simula la lectura de una nueva temperatura y actualiza el valor interno.
+     * Genera un valor aleatorio de dos decimales.
      */
     @Override
     public void actualizarValor() {
-        // Generamos una temperatura aleatoria
-        // Redondeamos a dos decimales
         this.valorActual = Math.round((15.0 + Math.random() * 15.0) * 100.0) / 100.0;
     }
 }

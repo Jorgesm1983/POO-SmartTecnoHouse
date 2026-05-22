@@ -2,12 +2,17 @@ package modelo;
 
 import java.util.List;
 
-/*
-* Clase que implementa la regla de iluminación.
+/**
+ * Clase que implementa la regla de la iluminación.
+ * Gestiona el encendido de la bombilla  según los valores de lus y presencia.
  */
-
 public class ReglaIluminacion implements Regla{
 
+    /**
+     * Aplica la lógica de control sobre la bombilla.
+     * @param sensores   Lista de sensores para consultar su estado actual.
+     * @param actuadores Lista de actuadores para ejecutar acciones.
+     */
     @Override
     public void aplicar(List<Sensor> sensores, List<Actuador> actuadores ){
         // Iniciamos luminidad a un valor 1000 lumenes.

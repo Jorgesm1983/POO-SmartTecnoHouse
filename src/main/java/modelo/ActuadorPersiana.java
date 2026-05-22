@@ -1,7 +1,7 @@
 package modelo;
 
 /**
- * Clase concreta que representa un motor de persiana.
+ * Clase que representa un motor de persiana.
  * Hereda de la clase abstracta Actuador.
  */
 public class ActuadorPersiana extends Actuador {

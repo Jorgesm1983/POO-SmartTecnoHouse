@@ -17,11 +17,10 @@ public class SensorHumedad extends Sensor {
 
     /**
      * Simula la lectura de la humedad relativa del aire.
+     * Genera un valor aleatorio de dos decimales.
      */
     @Override
     public void actualizarValor() {
-        // Simulamos una humedad realista para una casa
-        // Redondeamos a dos decimales
         this.valorActual = Math.round((30.0 + Math.random() * 50.0) * 100.0) / 100.0;
     }
 }

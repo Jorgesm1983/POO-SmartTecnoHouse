@@ -1,14 +1,14 @@
 package vista;
 
 import controlador.Controlador;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Clase que genera la interfaz gráfica.
+ * Clase que genera la interfaz principal de la aplicación.
+ * Implementa la Vista del modelo MVC
  */
 public class VentanaPrincipal extends JFrame {
 
@@ -16,6 +16,11 @@ public class VentanaPrincipal extends JFrame {
     private JTextArea areaTexto;
     private JButton botonEjecutar;
 
+    /**
+     * Constructor de la ventana principal.
+     * Construye y configura todos los elementos visuales de la interfaz.
+     * @param controlador El controlador del sistema MVC que gestionará la lógica.
+     */
     public VentanaPrincipal(Controlador controlador) {
         this.controlador = controlador;
 
@@ -59,7 +64,7 @@ public class VentanaPrincipal extends JFrame {
     }
 
     /**
-     * Hacemos visible la ventana.
+     * Hace visible la ventana.
      */
     public void mostrar() {
         setVisible(true);

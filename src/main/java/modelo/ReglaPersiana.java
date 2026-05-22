@@ -3,11 +3,16 @@ package modelo;
 import java.util.List;
 
 /**
- * Clase concreta que implementa la regla para el control automático de la persiana.
- * Da uso al Sensor de Humedad y al Actuador Persiana creados como ampliación.
+ * Clase que implementa la regla para el control automático de la persiana.
+ * Contrala el funcionamiento de la persiana según los valores del sensor de humedad.
  */
 public class ReglaPersiana implements Regla {
 
+    /**
+     * Aplica la lógica de control sobre la persiana en función de la humedad.
+     * @param sensores   Lista de sensores para consultar su estado actual.
+     * @param actuadores Lista de actuadores para ejecutar acciones.
+     */
     @Override
     public void aplicar(List<Sensor> sensores, List<Actuador> actuadores) {
         double humedad = 50.0; // Valor neutro por defecto
