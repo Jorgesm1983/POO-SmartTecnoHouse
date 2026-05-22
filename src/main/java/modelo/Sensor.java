@@ -73,8 +73,26 @@ public abstract class Sensor implements IDispositivo {
     }
 
     /**
-     * Método abstracto que obliga a todas las clases hijas a definir
+     * Metodo abstracto que obliga a todas las clases hijas a definir
      * cómo realizan sus mediciones.
      */
     public abstract void actualizarValor();
+
+    /**
+     * Recuperamos e inyectamos el valor previo del json.
+     */
+    public void setEstadoActual(String estado) {
+        try {
+            // Limpiamos los valores del json
+            String numeroLimpio = estado.replaceAll("[^0-9\\.-]", "");
+
+            // Si después de limpiar ha quedado un número válido, lo convertimos
+            if (!numeroLimpio.isEmpty()) {
+                this.valorActual = Double.parseDouble(numeroLimpio);
+            }
+
+        } catch (Exception e) {
+            System.out.println("No se pudo procesar la persistencia del sensor con valor: " + estado);
+        }
+    }
 }

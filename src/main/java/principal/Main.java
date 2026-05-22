@@ -2,7 +2,6 @@ package principal;
 
 import controlador.Controlador;
 import vista.VentanaPrincipal;
-
 import javax.swing.SwingUtilities;
 
 /**
@@ -15,7 +14,7 @@ public class Main {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                // Creamos el director de orquesta (Controlador)
+                // Creamos el controlador
                 Controlador controlador = new Controlador();
 
                 // Creamos la ventana y le pasamos el controlador

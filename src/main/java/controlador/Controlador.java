@@ -1,13 +1,16 @@
 package controlador;
 
-import modelo.*; // Importamos todas las clases de nuestro modelo
+// Importamos todas las clases de nuestro modelo
+import modelo.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// Importaciones nuevas para manejar la escritura de archivos y la hora actual
+// Importaciones para manejar la escritura de archivos y la hora actual
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.io.File;
+import java.io.BufferedReader;
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +31,9 @@ public class Controlador {
         this.actuadores = new ArrayList<>();
         this.reglas = new ArrayList<>();
         inicializarSistema();
+
+        // Intentamos recuperar los datos previos si existiesen
+        cargarEstadoJSON();
     }
 
     /**
@@ -53,8 +59,6 @@ public class Controlador {
 
     /**
      * Ejecuta un ciclo completo: actualiza sensores, evalúa reglas y muestra resultados.
-     *
-     * @return
      */
     public String ejecutarCicloSimulacion() {
         // Usamos StringBuilder para ir construyendo el texto que devolveremos a la ventana
@@ -79,7 +83,7 @@ public class Controlador {
         }
         reporte.append("-------------------------------------\n");
 
-        // Guardamos el estado de los actuadores
+        // Guardamos el estado de los actuadores en el LOG y los valores de los sensores en el JSON
         guardarLogActuadores();
         guardarEstadoJSON();
 
@@ -112,7 +116,7 @@ public class Controlador {
      * Generamos el archivo json para la persistencia del estadoo del sistema.
      */
     private void guardarEstadoJSON() {
-        // Abrimos el archivo SIN el true para que se sobrescriba siempre
+        // Abrimos el archivo sin el true para que se sobrescriba siempre
         try (FileWriter fileWriter = new FileWriter("estado_sistema.json");
              PrintWriter printWriter = new PrintWriter(fileWriter)) {
 
@@ -137,5 +141,65 @@ public class Controlador {
         } catch (IOException e) {
             System.out.println("Error al generar el archivo JSON: " + e.getMessage());
         }
+    }
+    /**
+     * Lee el archivo estado_sistema.json si existe al arrancar
+     * y recupera los valores guardados de los sensores.
+     */
+    private void cargarEstadoJSON() {
+        File archivo = new File("estado_sistema.json");
+
+        if (!archivo.exists()) {
+            System.out.println("No hay archivo JSON previo. Los sensores iniciarán con valores base.");
+            return;
+        }
+
+        // Forzamos la lectura en UTF-8 para que no haya problemas con símbolos de unidades
+        try (BufferedReader br = new BufferedReader(
+                new java.io.InputStreamReader(new java.io.FileInputStream(archivo), java.nio.charset.StandardCharsets.UTF_8))) {
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+
+                // Ignorar las llaves de apertura y cierre
+                if (linea.equals("{") || linea.equals("}")) {
+                    continue;
+                }
+
+                // Separamos la clave del valor usando los primeros dos puntos que encuentre
+                int posicionDosPuntos = linea.indexOf(":");
+                if (posicionDosPuntos != -1) {
+                    // Extraemos y limpiamos las comillas del ID
+                    String idSensor = linea.substring(0, posicionDosPuntos).replace("\"", "").trim();
+                    // Extraemos y limpiamos las comillas y la coma final del valor
+                    String valor = linea.substring(posicionDosPuntos + 1).replace("\"", "").replace(",", "").trim();
+
+                    // Buscamos el sensor con ese ID para asignarle el estado recuperado
+                    for (Sensor s : sensores) {
+                        if (s.getId().equals(idSensor)) {
+                            s.setEstadoActual(valor);
+                            break;
+                        }
+                    }
+                }
+            }
+            System.out.println("--> Persistencia cargada con éxito. Datos del JSON cargados.");
+
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo JSON: " + e.getMessage());
+        }
+    }
+    /**
+     * Devolvemos los valores del json para cargar al inicio de la ejecución del programa
+     */
+    public String obtenerEstadoInicial() {
+        StringBuilder estado = new StringBuilder();
+        estado.append("--- ESTADO INICIAL RECUPERADO ---\n");
+        for (Sensor sensor : sensores) {
+            estado.append(sensor.getNombre()).append(": ").append(sensor.getEstadoActual()).append("\n");
+        }
+        estado.append("----------------------------------------\n\n");
+        return estado.toString();
     }
 }

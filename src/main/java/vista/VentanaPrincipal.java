@@ -29,12 +29,15 @@ public class VentanaPrincipal extends JFrame {
         // Area de texto central
         areaTexto = new JTextArea();
         areaTexto.setEditable(false);
-        areaTexto.setText("Sistema Iniciado.\n\n");
+
+        // Pedimos al controlador los datos iniciales según los valores en el JSON
+        String textoArranque = "Sistema Iniciado.\n\n" + controlador.obtenerEstadoInicial();
+        areaTexto.setText(textoArranque);
 
         JScrollPane scrollPane = new JScrollPane(areaTexto);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Botón inferior
+        // Botón inferior que lanza el ciclo de alteración de datos de los sensores
         botonEjecutar = new JButton("Evaluar estado de Sensores");
         add(botonEjecutar, BorderLayout.SOUTH);
 
@@ -47,10 +50,6 @@ public class VentanaPrincipal extends JFrame {
 
                 // Lo imprimimos en la pantalla de la ventana
                 areaTexto.append(resultado);
-
-
-                // Llamamos al controlador para que ejecute el modelo.
-                controlador.ejecutarCicloSimulacion();
                 areaTexto.append("--> Ciclo completado.\n\n");
 
                 // Esto hace que el área de texto haga scroll hacia abajo automáticamente
