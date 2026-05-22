@@ -9,7 +9,6 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 /**
  * Clase principal de la lógica de control del modelo MVC.
@@ -54,14 +53,18 @@ public class Controlador {
 
     /**
      * Ejecuta un ciclo completo: actualiza sensores, evalúa reglas y muestra resultados.
+     *
+     * @return
      */
-    public void ejecutarCicloSimulacion() {
-        System.out.println("--- INICIANDO SISTEMA ---");
+    public String ejecutarCicloSimulacion() {
+        // Usamos StringBuilder para ir construyendo el texto que devolveremos a la ventana
+        StringBuilder reporte = new StringBuilder();
+        reporte.append("--- INICIANDO SISTEMA ---");
 
         // Los sensores se inician y cargan los valores.
         for (Sensor sensor : sensores) {
             sensor.actualizarValor();
-            System.out.println(sensor.getNombre() + ", " + sensor.getId() + ", ha medido: " + sensor.getEstadoActual());
+            reporte.append(sensor.getNombre()).append(" (").append(sensor.getId()).append(") ha medido: ").append(sensor.getEstadoActual()).append("\n");
         }
 
         // Las reglas piensan y actúan
@@ -70,15 +73,18 @@ public class Controlador {
         }
 
         // Comprobamos cómo han quedado los actuadores
-        System.out.println("\n--- ESTADO DE LOS ACTUADORES ---");
+        reporte.append("\n--- ESTADO DE LOS ACTUADORES ---");
         for (Actuador actuador : actuadores) {
-            System.out.println(actuador.getNombre() + ", " + actuador.getId() + ",: " + actuador.getEstadoActual());
+            reporte.append(actuador.getNombre()).append(" (").append(actuador.getId()).append("): ").append(actuador.getEstadoActual()).append("\n");
         }
-        System.out.println("-------------------------------------\n");
+        reporte.append("-------------------------------------\n");
 
         // Guardamos el estado de los actuadores
         guardarLogActuadores();
         guardarEstadoJSON();
+
+        // Devolvemos el texto acumulado.
+        return reporte.toString();
     }
 
     /**

@@ -1,6 +1,9 @@
 package principal;
 
 import controlador.Controlador;
+import vista.VentanaPrincipal;
+
+import javax.swing.SwingUtilities;
 
 /**
  * Clase principal que arranca la aplicación.
@@ -8,23 +11,19 @@ import controlador.Controlador;
 public class Main {
     public static void main(String[] args) {
 
-        // Instanciamos el controlador
-        // Al crearlo, se inicializan automáticamente todos los sensores, actuadores y reglas.
-        Controlador controlador = new Controlador();
+        // SwingUtilities asegura que la interfaz gráfica arranque de forma segura en su propio hilo
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                // 1. Creamos el director de orquesta (Controlador)
+                Controlador controlador = new Controlador();
 
-        // Ejecutamos un primer ciclo de prueba para probar el funcionamiento del modelo antes de avanzar con la interfáz gráfica
-        // Los sensores generarán valores aleatorios y las reglas actuarán según los parametros definidos.
-        controlador.ejecutarCicloSimulacion();
+                // 2. Creamos la ventana y le pasamos el controlador
+                VentanaPrincipal ventana = new VentanaPrincipal(controlador);
 
-        // Esperamos un momento y inicamos otra prueba
-        // para comprobar cómo cambian los valores y los estados.
-        try {
-            Thread.sleep(1500); // Pausa de 1.5 segundos
-        } catch (InterruptedException e) {
-            System.out.println("Error en la pausa de simulación.");
-        }
-
-        System.out.println("=== ACTUALIZANDO SISTEMA ===");
-        controlador.ejecutarCicloSimulacion();
+                // 3. Mostramos la ventana en pantalla
+                ventana.mostrar();
+            }
+        });
     }
 }
