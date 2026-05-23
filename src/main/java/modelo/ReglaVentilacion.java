@@ -3,7 +3,7 @@ package modelo;
 import java.util.List;
 
 /**
- * Clase que implementa la regla de ventilación.
+ * Clase que implementa la regla de ventilación (R1).
  * Controla el encendido y apagado del ventilador en base a la temperatura y la presencia .
  */
 public class ReglaVentilacion implements Regla {

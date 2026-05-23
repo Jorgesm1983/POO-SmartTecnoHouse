@@ -3,7 +3,7 @@ package modelo;
 import java.util.List;
 
 /**
- * Clase que implementa la regla para el control automático de la persiana.
+ * Clase que implementa la regla para el control automático de la persiana (R3).
  * Contrala el funcionamiento de la persiana según los valores del sensor de humedad.
  */
 public class ReglaPersiana implements Regla {

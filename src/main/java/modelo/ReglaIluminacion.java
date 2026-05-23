@@ -3,7 +3,7 @@ package modelo;
 import java.util.List;
 
 /**
- * Clase que implementa la regla de la iluminación.
+ * Clase que implementa la regla de la iluminación (R2).
  * Gestiona el encendido de la bombilla  según los valores de lus y presencia.
  */
 public class ReglaIluminacion implements Regla{

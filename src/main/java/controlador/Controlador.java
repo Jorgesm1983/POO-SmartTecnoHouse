@@ -67,7 +67,7 @@ public class Controlador {
 
         // Usamos StringBuilder para ir construyendo el texto que devolveremos a la ventana
         StringBuilder reporte = new StringBuilder();
-        reporte.append("--- INICIANDO SISTEMA ---");
+        reporte.append("--- INICIANDO SISTEMA ---").append("\n");
 
         // Los sensores se inician y cargan los valores.
         for (Sensor sensor : sensores) {
@@ -81,7 +81,7 @@ public class Controlador {
         }
 
         // Comprobamos cómo han quedado los actuadores
-        reporte.append("\n--- ESTADO DE LOS ACTUADORES ---");
+        reporte.append("\n--- ESTADO DE LOS ACTUADORES ---").append("\n");
         for (Actuador actuador : actuadores) {
             reporte.append(actuador.getNombre()).append(" (").append(actuador.getId()).append("): ").append(actuador.getEstadoActual()).append("\n");
         }
